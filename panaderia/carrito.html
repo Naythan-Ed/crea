@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Desesperanza - Carrito de Compras</title>
+    <link rel="stylesheet" href="panes.css">
+    <link rel="stylesheet" href="carrito.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/index.html"><img src="img/Gemini_Generated_Image_36i7ku36i7ku36i7.png" alt="desesperanza" class="logo"></a>
+            
+            <div class="menu-item">
+                <p class="mostrar">Productos</p>
+                <div class="produc">
+                    <a href="productos.html#panes"><p>Panes</p></a>
+                    <a href="productos.html#pasteles"><p>Pasteles</p></a>
+                    <a href="productos.html#temporada"><p>De Temporada</p></a>
+                </div>
+            </div>
+            <a href="/informacion.html"><p class="mostrar">Sobre nosotros</p></a>
+            <a href="/ofertas.html"><p class="mostrar">Ofertas</p></a>
+
+            <div class="navbusca">
+                <a href="/perfil.html" title="Mi cuenta"><img src="img/usuario.png" alt="Usuario"></a>
+                <a href="/carrito.html" style="position: relative;" title="Carrito de compras">
+                    <img src="img/carrito-de-compras.png" alt="Carrito">
+                    <span id="carrito-badge" style="
+                        display: none;
+                        position: absolute;
+                        top: -8px;
+                        right: -8px;
+                        background-color: #d32f2f;
+                        color: white;
+                        border-radius: 50%;
+                        width: 20px;
+                        height: 20px;
+                        font-size: 12px;
+                        font-weight: bold;
+                        text-align: center;
+                        line-height: 20px;
+                    ">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="carrito-container">
+        <h1 class="carrito-titulo">🛒 Mi Carrito de Compras</h1>
+
+        <!-- Mensaje si no hay sesión -->
+        <div id="no-sesion" style="display: none;" class="mensaje-vacio">
+            <h2>🔒 Inicia Sesión</h2>
+            <p>Debes iniciar sesión para ver tu carrito de compras</p>
+            <a href="login.html" class="btn-principal">Ir a Login</a>
+        </div>
+
+        <!-- Carrito vacío -->
+        <div id="carrito-vacio" style="display: none;" class="mensaje-vacio">
+            <h2>🛍️ Tu carrito está vacío</h2>
+            <p>¡Agrega algunos productos deliciosos!</p>
+            <a href="panes.html" class="btn-principal">Ver Productos</a>
+        </div>
+
+        <!-- Contenido del carrito -->
+        <div id="carrito-contenido" style="display: none;">
+            <div class="carrito-layout">
+                <!-- Lista de productos -->
+                <div class="carrito-productos">
+                    <div id="productos-lista">
+                        <!-- Los productos se cargarán aquí dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- Resumen del pedido -->
+                <div class="carrito-resumen">
+                    <h2>📋 Resumen del Pedido</h2>
+                    
+                    <div class="resumen-item">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">$0.00</span>
+                    </div>
+                    
+                    <div class="resumen-item">
+                        <span>Envío:</span>
+                        <span id="envio">$50.00</span>
+                    </div>
+                    
+                    <div class="resumen-divider"></div>
+                    
+                    <div class="resumen-total">
+                        <span>Total:</span>
+                        <span id="total">$0.00</span>
+                    </div>
+
+                    <div class="total-items">
+                        <span id="cantidad-items">0 productos</span>
+                    </div>
+
+                    <button class="btn-finalizar" onclick="finalizarCompra()">
+                        💳 Finalizar Compra
+                    </button>
+
+                    <button class="btn-vaciar" onclick="vaciarCarrito()">
+                        🗑️ Vaciar Carrito
+                    </button>
+
+                    <a href="panes.html" class="btn-seguir">
+                        ← Seguir Comprando
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación -->
+    <div id="modal-confirmacion" class="modal" style="display: none;">
+        <div class="modal-contenido">
+            <h2>✅ ¡Compra Realizada!</h2>
+            <p>Tu pedido ha sido registrado exitosamente.</p>
+            <p><strong>Número de pedido: <span id="numero-pedido"></span></strong></p>
+            <p>Puedes ver el estado de tu pedido en tu perfil.</p>
+            <div class="modal-botones">
+                <button onclick="irAPerfil()" class="btn-principal">Ver Mis Pedidos</button>
+                <button onclick="cerrarModal()" class="btn-secundario">Seguir Comprando</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>📍 Ubicación</h3>
+                <p>Calle Principal 123<br>Tu Ciudad<br>Teléfono: +52 55 1234 5678</p>
+            </div>
+            <div class="footer-section">
+                <h3>🕐 Horarios</h3>
+                <p>Lunes - Viernes: 7:00 AM - 7:00 PM<br>Sábado: 8:00 AM - 8:00 PM<br>Domingo: 9:00 AM - 5:00 PM</p>
+            </div>
+            <div class="footer-section">
+                <h3>📱 Síguenos</h3>
+                <p><a href="#">Facebook</a> | <a href="#">Instagram</a> | <a href="#">Twitter</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 La Desesperanza - Todos los derechos reservados. Hecho con ❤️ y pan fresco.</p>
+        </div>
+    </footer>
+
+    <script src="carrito.js"></script>
+</body>
+</html>

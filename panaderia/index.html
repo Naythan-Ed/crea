@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La desesperanza</title>
+   <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/index.html"><img src="img/Gemini_Generated_Image_36i7ku36i7ku36i7.png" alt="desesperanza" class="logo"></a>
+            
+            <div class="menu-item">
+                <p class="mostrar">Productos</p>
+                <div class="produc">
+                    <a href="/panes.html"><p>Panes</p></a>
+                    <a href="/panes.html"><p>Pasteles</p></a>
+                </div>
+            </div>
+            <a href="/informacion.html"><p class="mostrar">Sobre nostros</p></a>
+            <a href="/ofertas.html"><p class="mostrar">Ofertas</p></a>
+
+            <div class="navbusca">
+                <a href="/login.html" id="btnUsuario"><img src="img/usuario.png" alt="usuario"></a>
+                <a href="#"><img src="img/carrito-de-compras.png" alt="carrito"></a>
+            </div>
+        </nav>
+    </header>
+    <div class="heroe">
+        <h1>La desesperanza</h1>
+    </div>
+
+    <!-- IMPORTANTE: Cargar registro.js primero -->
+    <script src="registro.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar si el usuario tiene sesión activa
+            const usuarioSesion = sessionStorage.getItem('usuario_sesion') || 
+                                  localStorage.getItem('usuario_sesion');
+            
+            const btnUsuario = document.getElementById('btnUsuario');
+            
+            if (usuarioSesion) {
+                // Si hay sesión activa, redirigir a perfil
+                try {
+                    const usuario = JSON.parse(usuarioSesion);
+                    btnUsuario.href = '/perfil.html';
+                    btnUsuario.title = `Mi Perfil - ${usuario.nombre}`;
+                    
+                    console.log('✅ Sesión activa:', usuario.nombre);
+                } catch (error) {
+                    console.error('Error al parsear usuario:', error);
+                    btnUsuario.href = '/login.html';
+                    btnUsuario.title = 'Iniciar Sesión';
+                }
+            } else {
+                // Si no hay sesión, redirigir a login
+                btnUsuario.href = '/login.html';
+                btnUsuario.title = 'Iniciar Sesión';
+                
+                console.log('❌ No hay sesión activa');
+            }
+        });
+
+        // Función alternativa usando la función de registro.js (si está disponible)
+        function configurarBotonUsuario() {
+            const usuario = obtenerUsuarioActual();
+            const btnUsuario = document.getElementById('btnUsuario');
+            
+            if (usuario) {
+                btnUsuario.href = '/perfil.html';
+                btnUsuario.title = `Mi Perfil - ${usuario.nombre}`;
+            } else {
+                btnUsuario.href = '/login.html';
+                btnUsuario.title = 'Iniciar Sesión';
+            }
+        }
+
+        // Intentar usar la función si existe
+        if (typeof obtenerUsuarioActual === 'function') {
+            configurarBotonUsuario();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    background-color: #91660a;
+    height: 10vh;
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+header h1,header p {
+    margin: 0;
+}
+
+nav a img {
+    height: 20px;
+    width: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.logo {
+    height: 9vh;
+    width: 80px;
+}
+
+nav p {
+    color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 0;
+    cursor: pointer;
+       transition: all 0.5s;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.navbusca a {
+    margin-left: 0;
+    margin-right: 0;
+    
+}
+
+.navbusca {
+    display: flex;
+    gap: 30px;
+}
+
+.mostrar:hover {
+    background-color: rgba(255, 196, 0, 0.4);
+    font-weight: bold;
+     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+}
+
+.navbusca img:hover {
+    height: 23px;
+    width: 23px;
+    border-bottom: 2px solid black;
+}
+
+.menu-item {
+    position: relative;
+}
+
+.produc {
+    display: none;
+    border-radius: 10px;
+    text-align: left;
+    position: absolute;
+    background-color: #7a5608;
+    width: 150px;
+    z-index: 1000;
+
+}
+
+.menu-item:hover .produc {
+    display: block;
+    opacity: 1;
+}
+
+.produc a {
+    display: block;
+    text-align: left;
+    margin-top: 20px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 20px;
+    text-align: left;
+    padding: 10px 0px 10px 10px;
+    transition: all 0.3s;
+}
+
+.produc a:hover {
+    padding-left: 20px;
+    background-color: #5e4309;
+    color: beige;
+}
+
+
+
+.heroe {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    width: 100%;
+    margin: 0;
+    background-image: url(img/panheroe.jpg);
+    padding: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.heroe h1 {
+    margin: 0;
+    padding: 30px 60px;
+    font-size: 5rem;
+    color: #FFFFFF;
+    font-family: Georgia, serif;
+    letter-spacing: 3px;
+    font-weight: bold;
+    border: 2px solid #FFFFFF4D;
+    border-radius: 5px;
+    backdrop-filter: blur(5px);
+    animation: bajar 0.8s ease-out;
+}
+
+@keyframes bajar {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - La Desesperanza</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="perfil.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/index.html"><img src="img/Gemini_Generated_Image_36i7ku36i7ku36i7.png" alt="desesperanza" class="logo"></a>
+            
+            <div class="menu-item">
+                <p class="mostrar">Productos</p>
+                <div class="produc">
+                    <a href="/panes.html"><p>Panes</p></a>
+                    <a href="/panes.html"><p>Pasteles</p></a>
+                </div>
+            </div>
+            <a href="/informacion.html"><p class="mostrar">Sobre nostros</p></a>
+            <a href="/ofertas.html"><p class="mostrar">Ofertas</p></a>
+
+            <div class="navbusca">
+                <a href="/login.html" id="btnUsuario"><img src="img/usuario.png" alt=""></a>
+                <a href="#"><img src="img/carrito-de-compras.png" alt=""></a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="perfil-container">
+        <!-- Contenido del Perfil -->
+        <div id="perfilContent" style="display: none;">
+            <!-- Vista de Perfil -->
+            <div id="vistaPerfilCard" class="perfil-card">
+                <div class="perfil-header">
+                    <div class="perfil-avatar" id="avatar">U</div>
+                    <div class="perfil-info">
+                        <h1 id="nombreCompleto">Usuario</h1>
+                        <p id="emailUsuario">correo@ejemplo.com</p>
+                        <p id="telefonoUsuario">📞 Teléfono</p>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h2>📋 Información Personal</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Nombre</label>
+                            <div class="value" id="nombre">-</div>
+                        </div>
+                        <div class="info-item">
+                            <label>Apellido</label>
+                            <div class="value" id="apellido">-</div>
+                        </div>
+                        <div class="info-item">
+                            <label>Email</label>
+                            <div class="value" id="email">-</div>
+                        </div>
+                        <div class="info-item">
+                            <label>Teléfono</label>
+                            <div class="value" id="telefono">-</div>
+                        </div>
+                        <div class="info-item">
+                            <label>Miembro desde</label>
+                            <div class="value" id="fechaRegistro">-</div>
+                        </div>
+                        <div class="info-item">
+                            <label>Último acceso</label>
+                            <div class="value" id="fechaLogin">-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="number" id="totalPedidos">0</div>
+                        <div class="label">Pedidos Realizados</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number" id="productosCarrito">0</div>
+                        <div class="label">Productos en Carrito</div>
+                    </div>
+                </div>
+
+                <div class="info-section" style="margin-top: 40px;">
+                    <h2>⚙️ Acciones</h2>
+                    <div class="btn-group">
+                        <a href="index.html" class="btn btn-primary">🏠 Volver al Inicio</a>
+                        <a href="panes.html" class="btn btn-primary">🛒 Ver Productos</a>
+                        <button class="btn btn-secondary" onclick="mostrarFormularioEdicion()">✏️ Editar Perfil</button>
+                        <button class="btn btn-logout" onclick="cerrarSesion()">🚪 Cerrar Sesión</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulario de Edición -->
+            <div id="edicionPerfilCard" class="perfil-card" style="display: none;">
+                <h2 style="color: #8B4513; margin-bottom: 30px;">✏️ Editar Perfil</h2>
+                
+                <div id="editErrorMessage" class="message error-message" style="display: none;"></div>
+                <div id="editSuccessMessage" class="message success-message" style="display: none;"></div>
+
+                <form id="editarPerfilForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editNombre">Nombre *</label>
+                            <input type="text" id="editNombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editApellido">Apellido *</label>
+                            <input type="text" id="editApellido" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editEmail">Email *</label>
+                            <input type="email" id="editEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editTelefono">Teléfono *</label>
+                            <input type="tel" id="editTelefono" required>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>🔒 Cambiar Contraseña (Opcional)</h3>
+                        <p class="form-hint">Déjalo en blanco si no quieres cambiar tu contraseña</p>
+                        
+                        <div class="form-group">
+                            <label for="editPasswordActual">Contraseña Actual</label>
+                            <input type="password" id="editPasswordActual">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="editPasswordNueva">Nueva Contraseña</label>
+                                <input type="password" id="editPasswordNueva">
+                            </div>
+                            <div class="form-group">
+                                <label for="editPasswordConfirm">Confirmar Nueva Contraseña</label>
+                                <input type="password" id="editPasswordConfirm">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="btn-group" style="margin-top: 30px;">
+                        <button type="submit" class="btn btn-primary">💾 Guardar Cambios</button>
+                        <button type="button" class="btn btn-secondary" onclick="cancelarEdicion()">❌ Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Sin Sesión -->
+        <div id="noSesion" style="display: none;">
+            <div class="perfil-card" style="text-align: center;">
+                <h2 style="color: #8B4513; margin-bottom: 20px;">🔒 Acceso Restringido</h2>
+                <p style="color: #666; margin-bottom: 30px;">Debes iniciar sesión para ver tu perfil</p>
+                <a href="login.html" class="btn btn-primary">Iniciar Sesión</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="perfil.js"></script>
+</body>
+</html>

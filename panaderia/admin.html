@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - La Desesperanza</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <div class="container">
+        <div class="admin-header">
+            <div>
+                <h1>🍞 Panel de Administración</h1>
+                <p>Gestión de Productos - La Desesperanza</p>
+            </div>
+            <a href="index.html" class="btn-cerrar" onclick="cerrarSesion()">Cerrar Sesión</a>
+        </div>
+
+        <div class="cards-grid">
+            <div class="stat-card">
+                <h3>Total Productos</h3>
+                <div class="numero" id="totalProductos">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Categorías</h3>
+                <div class="numero" id="totalCategorias">3</div>
+            </div>
+            <div class="stat-card">
+                <h3>Stock Total</h3>
+                <div class="numero" id="stockTotal">0</div>
+            </div>
+        </div>
+
+        <div class="main-card">
+            <h2>Agregar Nuevo Producto</h2>
+
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Procesando...</p>
+            </div>
+
+            <form id="productoForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nombre">Nombre del Producto *</label>
+                        <input type="text" id="nombre" required placeholder="Ej: Pan Francés">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categoria">Categoría *</label>
+                        <select id="categoria" required>
+                            <option value="">Seleccionar categoría</option>
+                            <option value="panes">Panes</option>
+                            <option value="pasteles">Pasteles</option>
+                            <option value="temporada">Temporada</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="descripcion">Descripción *</label>
+                    <textarea id="descripcion" required placeholder="Describe el producto..."></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="precio">Precio ($) *</label>
+                        <input type="number" id="precio" step="0.01" min="0" required placeholder="0.00">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="stock">Stock *</label>
+                        <input type="number" id="stock" min="0" required placeholder="0">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="imagen">URL de Imagen (opcional)</label>
+                    <input type="text" id="imagen" placeholder="https://ejemplo.com/imagen.jpg">
+                </div>
+
+                <button type="submit" class="btn-agregar">➕ Agregar Producto</button>
+            </form>
+        </div>
+
+        <div class="main-card productos-lista">
+            <h2>Productos Registrados</h2>
+            <div id="listaProductos">
+                <p style="text-align: center; color: #999;">Cargando productos...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api';
+
+        // Verificar si el usuario es admin
+        document.addEventListener('DOMContentLoaded', function() {
+            verificarAdmin();
+            cargarProductos();
+            cargarEstadisticas();
+        });
+
+        function verificarAdmin() {
+            const usuarioJSON = sessionStorage.getItem('usuario_sesion') || 
+                                localStorage.getItem('usuario_sesion');
+            
+            if (!usuarioJSON) {
+                alert('Debes iniciar sesión');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const usuario = JSON.parse(usuarioJSON);
+            
+            // ✅ CORREGIDO: Verificar si el email es "admin@gmail.com"
+            if (usuario.email !== 'admin@gmail.com') {
+                alert('No tienes permisos de administrador');
+                window.location.href = 'index.html';
+                return;
+            }
+        }
+
+        function cerrarSesion() {
+            if (confirm('¿Deseas cerrar sesión?')) {
+                sessionStorage.removeItem('usuario_sesion');
+                localStorage.removeItem('usuario_sesion');
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Agregar producto
+        document.getElementById('productoForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const nombre = document.getElementById('nombre').value.trim();
+            const descripcion = document.getElementById('descripcion').value.trim();
+            const precio = parseFloat(document.getElementById('precio').value);
+            const categoria = document.getElementById('categoria').value;
+            const stock = parseInt(document.getElementById('stock').value);
+            const imagen = document.getElementById('imagen').value.trim();
+
+            const errorDiv = document.getElementById('errorMessage');
+            const successDiv = document.getElementById('successMessage');
+            const loading = document.getElementById('loading');
+
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+
+            if (!nombre || !descripcion || !categoria || precio < 0 || stock < 0) {
+                mostrarError('Por favor completa todos los campos correctamente');
+                return;
+            }
+
+            loading.style.display = 'block';
+
+            try {
+                const response = await fetch(`${API_URL}/productos`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        nombre,
+                        descripcion,
+                        precio,
+                        categoria,
+                        stock,
+                        imagen: imagen || null
+                    })
+                });
+
+                const data = await response.json();
+                loading.style.display = 'none';
+
+                if (data.error) {
+                    mostrarError(data.error);
+                    return;
+                }
+
+                if (data.success) {
+                    mostrarExito('✅ Producto agregado exitosamente');
+                    document.getElementById('productoForm').reset();
+                    cargarProductos();
+                    cargarEstadisticas();
+                }
+
+            } catch (error) {
+                loading.style.display = 'none';
+                mostrarError('Error de conexión con el servidor');
+                console.error('Error:', error);
+            }
+        });
+
+        // Cargar productos
+        async function cargarProductos() {
+            try {
+                const response = await fetch(`${API_URL}/productos`);
+                const data = await response.json();
+
+                const lista = document.getElementById('listaProductos');
+
+                if (data.success && data.productos.length > 0) {
+                    lista.innerHTML = data.productos.map(p => `
+                        <div class="producto-item">
+                            <div class="info">
+                                <h4>${p.nombre}</h4>
+                                <p>${p.descripcion}</p>
+                                <p><strong>Categoría:</strong> ${p.categoria} | <strong>Stock:</strong> ${p.stock}</p>
+                            </div>
+                            <div class="precio">$${parseFloat(p.precio).toFixed(2)}</div>
+                            <button class="btn-eliminar" onclick="eliminarProducto(${p.id})">🗑️ Eliminar</button>
+                        </div>
+                    `).join('');
+                } else {
+                    lista.innerHTML = '<p style="text-align: center; color: #999;">No hay productos registrados</p>';
+                }
+
+            } catch (error) {
+                console.error('Error cargando productos:', error);
+                document.getElementById('listaProductos').innerHTML = 
+                    '<p style="text-align: center; color: #d32f2f;">Error cargando productos</p>';
+            }
+        }
+
+        // Eliminar producto
+        async function eliminarProducto(id) {
+            if (!confirm('¿Estás seguro de eliminar este producto?')) return;
+
+            try {
+                const response = await fetch(`${API_URL}/productos/${id}`, {
+                    method: 'DELETE'
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    mostrarExito('Producto eliminado exitosamente');
+                    cargarProductos();
+                    cargarEstadisticas();
+                } else {
+                    mostrarError(data.error || 'Error al eliminar');
+                }
+
+            } catch (error) {
+                mostrarError('Error de conexión');
+                console.error('Error:', error);
+            }
+        }
+
+        // Cargar estadísticas
+        async function cargarEstadisticas() {
+            try {
+                const response = await fetch(`${API_URL}/productos`);
+                const data = await response.json();
+
+                if (data.success) {
+                    const productos = data.productos;
+                    const totalStock = productos.reduce((sum, p) => sum + p.stock, 0);
+                    const categorias = [...new Set(productos.map(p => p.categoria))].length;
+
+                    document.getElementById('totalProductos').textContent = productos.length;
+                    document.getElementById('stockTotal').textContent = totalStock;
+                    document.getElementById('totalCategorias').textContent = categorias;
+                }
+
+            } catch (error) {
+                console.error('Error cargando estadísticas:', error);
+            }
+        }
+
+        function mostrarError(mensaje) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = mensaje;
+            errorDiv.style.display = 'block';
+            errorDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function mostrarExito(mensaje) {
+            const successDiv = document.getElementById('successMessage');
+            successDiv.textContent = mensaje;
+            successDiv.style.display = 'block';
+            successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            setTimeout(() => {
+                successDiv.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -30,21 +30,21 @@
     </header>
 
     <div class="perfil-container">
-        <!-- Contenido del Perfil -->
+
         <div id="perfilContent" style="display: none;">
-            <!-- Vista de Perfil -->
+
             <div id="vistaPerfilCard" class="perfil-card">
                 <div class="perfil-header">
                     <div class="perfil-avatar" id="avatar">U</div>
                     <div class="perfil-info">
                         <h1 id="nombreCompleto">Usuario</h1>
                         <p id="emailUsuario">correo@ejemplo.com</p>
-                        <p id="telefonoUsuario">📞 Teléfono</p>
+                        <p id="telefonoUsuario">Teléfono</p>
                     </div>
                 </div>
 
                 <div class="info-section">
-                    <h2>📋 Información Personal</h2>
+                    <h2> Información Personal</h2>
                     <div class="info-grid">
                         <div class="info-item">
                             <label>Nombre</label>
@@ -85,19 +85,19 @@
                 </div>
 
                 <div class="info-section" style="margin-top: 40px;">
-                    <h2>⚙️ Acciones</h2>
+                    <h2> Acciones</h2>
                     <div class="btn-group">
-                        <a href="index.html" class="btn btn-primary">🏠 Volver al Inicio</a>
-                        <a href="panes.html" class="btn btn-primary">🛒 Ver Productos</a>
-                        <button class="btn btn-secondary" onclick="mostrarFormularioEdicion()">✏️ Editar Perfil</button>
-                        <button class="btn btn-logout" onclick="cerrarSesion()">🚪 Cerrar Sesión</button>
+                        <a href="index.html" class="btn btn-primary"> Volver al Inicio</a>
+                        <a href="panes.html" class="btn btn-primary"> Ver Productos</a>
+                        <button class="btn btn-secondary" onclick="mostrarFormularioEdicion()"> Editar Perfil</button>
+                        <button class="btn btn-logout" onclick="cerrarSesion()"> Cerrar Sesión</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Formulario de Edición -->
+      
             <div id="edicionPerfilCard" class="perfil-card" style="display: none;">
-                <h2 style="color: #8B4513; margin-bottom: 30px;">✏️ Editar Perfil</h2>
+                <h2 style="color: #8B4513; margin-bottom: 30px;"> Editar Perfil</h2>
                 
                 <div id="editErrorMessage" class="message error-message" style="display: none;"></div>
                 <div id="editSuccessMessage" class="message success-message" style="display: none;"></div>
@@ -126,7 +126,7 @@
                     </div>
 
                     <div class="form-section">
-                        <h3>🔒 Cambiar Contraseña (Opcional)</h3>
+                        <h3> Cambiar Contraseña (Opcional)</h3>
                         <p class="form-hint">Déjalo en blanco si no quieres cambiar tu contraseña</p>
                         
                         <div class="form-group">
@@ -147,17 +147,17 @@
                     </div>
 
                     <div class="btn-group" style="margin-top: 30px;">
-                        <button type="submit" class="btn btn-primary">💾 Guardar Cambios</button>
-                        <button type="button" class="btn btn-secondary" onclick="cancelarEdicion()">❌ Cancelar</button>
+                        <button type="submit" class="btn btn-primary"> Guardar Cambios</button>
+                        <button type="button" class="btn btn-secondary" onclick="cancelarEdicion()"> Cancelar</button>
                     </div>
                 </form>
             </div>
         </div>
 
-        <!-- Sin Sesión -->
+
         <div id="noSesion" style="display: none;">
             <div class="perfil-card" style="text-align: center;">
-                <h2 style="color: #8B4513; margin-bottom: 20px;">🔒 Acceso Restringido</h2>
+                <h2 style="color: #8B4513; margin-bottom: 20px;"> Acceso Restringido</h2>
                 <p style="color: #666; margin-bottom: 30px;">Debes iniciar sesión para ver tu perfil</p>
                 <a href="login.html" class="btn btn-primary">Iniciar Sesión</a>
             </div>

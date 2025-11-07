@@ -10,7 +10,7 @@
     <div class="container">
         <div class="admin-header">
             <div>
-                <h1>🍞 Panel de Administración</h1>
+                <h1> Panel de Administración</h1>
                 <p>Gestión de Productos - La Desesperanza</p>
             </div>
             <a href="index.html" class="btn-cerrar" onclick="cerrarSesion()">Cerrar Sesión</a>
@@ -96,7 +96,7 @@
     <script>
         const API_URL = 'http://localhost:3000/api';
 
-        // Verificar si el usuario es admin
+       
         document.addEventListener('DOMContentLoaded', function() {
             verificarAdmin();
             cargarProductos();
@@ -115,7 +115,7 @@
 
             const usuario = JSON.parse(usuarioJSON);
             
-            // ✅ CORREGIDO: Verificar si el email es "admin@gmail.com"
+            
             if (usuario.email !== 'admin@gmail.com') {
                 alert('No tienes permisos de administrador');
                 window.location.href = 'index.html';
@@ -131,7 +131,7 @@
             }
         }
 
-        // Agregar producto
+       
         document.getElementById('productoForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
@@ -181,7 +181,7 @@
                 }
 
                 if (data.success) {
-                    mostrarExito('✅ Producto agregado exitosamente');
+                    mostrarExito(' Producto agregado exitosamente');
                     document.getElementById('productoForm').reset();
                     cargarProductos();
                     cargarEstadisticas();
@@ -194,7 +194,7 @@
             }
         });
 
-        // Cargar productos
+       
         async function cargarProductos() {
             try {
                 const response = await fetch(`${API_URL}/productos`);
@@ -225,7 +225,7 @@
             }
         }
 
-        // Eliminar producto
+       
         async function eliminarProducto(id) {
             if (!confirm('¿Estás seguro de eliminar este producto?')) return;
 
@@ -250,7 +250,7 @@
             }
         }
 
-        // Cargar estadísticas
+        
         async function cargarEstadisticas() {
             try {
                 const response = await fetch(`${API_URL}/productos`);

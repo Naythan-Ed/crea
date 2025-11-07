@@ -48,35 +48,35 @@
     </header>
 
     <div class="carrito-container">
-        <h1 class="carrito-titulo">🛒 Mi Carrito de Compras</h1>
+        <h1 class="carrito-titulo"> Mi Carrito de Compras</h1>
 
-        <!-- Mensaje si no hay sesión -->
+        
         <div id="no-sesion" style="display: none;" class="mensaje-vacio">
-            <h2>🔒 Inicia Sesión</h2>
+            <h2> Inicia Sesión</h2>
             <p>Debes iniciar sesión para ver tu carrito de compras</p>
             <a href="login.html" class="btn-principal">Ir a Login</a>
         </div>
 
-        <!-- Carrito vacío -->
+      
         <div id="carrito-vacio" style="display: none;" class="mensaje-vacio">
-            <h2>🛍️ Tu carrito está vacío</h2>
+            <h2> Tu carrito está vacío</h2>
             <p>¡Agrega algunos productos deliciosos!</p>
             <a href="panes.html" class="btn-principal">Ver Productos</a>
         </div>
 
-        <!-- Contenido del carrito -->
+       
         <div id="carrito-contenido" style="display: none;">
             <div class="carrito-layout">
-                <!-- Lista de productos -->
+            
                 <div class="carrito-productos">
                     <div id="productos-lista">
-                        <!-- Los productos se cargarán aquí dinámicamente -->
+                      
                     </div>
                 </div>
 
-                <!-- Resumen del pedido -->
+               
                 <div class="carrito-resumen">
-                    <h2>📋 Resumen del Pedido</h2>
+                    <h2> Resumen del Pedido</h2>
                     
                     <div class="resumen-item">
                         <span>Subtotal:</span>
@@ -100,11 +100,11 @@
                     </div>
 
                     <button class="btn-finalizar" onclick="finalizarCompra()">
-                        💳 Finalizar Compra
+                         Finalizar Compra
                     </button>
 
                     <button class="btn-vaciar" onclick="vaciarCarrito()">
-                        🗑️ Vaciar Carrito
+                         Vaciar Carrito
                     </button>
 
                     <a href="panes.html" class="btn-seguir">
@@ -115,10 +115,9 @@
         </div>
     </div>
 
-    <!-- Modal de confirmación -->
     <div id="modal-confirmacion" class="modal" style="display: none;">
         <div class="modal-contenido">
-            <h2>✅ ¡Compra Realizada!</h2>
+            <h2> ¡Compra Realizada!</h2>
             <p>Tu pedido ha sido registrado exitosamente.</p>
             <p><strong>Número de pedido: <span id="numero-pedido"></span></strong></p>
             <p>Puedes ver el estado de tu pedido en tu perfil.</p>
@@ -132,20 +131,20 @@
     <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <h3>📍 Ubicación</h3>
+                <h3> Ubicación</h3>
                 <p>Calle Principal 123<br>Tu Ciudad<br>Teléfono: +52 55 1234 5678</p>
             </div>
             <div class="footer-section">
-                <h3>🕐 Horarios</h3>
+                <h3> Horarios</h3>
                 <p>Lunes - Viernes: 7:00 AM - 7:00 PM<br>Sábado: 8:00 AM - 8:00 PM<br>Domingo: 9:00 AM - 5:00 PM</p>
             </div>
             <div class="footer-section">
-                <h3>📱 Síguenos</h3>
+                <h3> Síguenos</h3>
                 <p><a href="#">Facebook</a> | <a href="#">Instagram</a> | <a href="#">Twitter</a></p>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 La Desesperanza - Todos los derechos reservados. Hecho con ❤️ y pan fresco.</p>
+            <p>&copy; 2024 La Desesperanza - Todos los derechos reservados. Hecho con amor y pan fresco.</p>
         </div>
     </footer>
 

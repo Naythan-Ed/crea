@@ -31,40 +31,39 @@
         <h1>La desesperanza</h1>
     </div>
 
-    <!-- IMPORTANTE: Cargar registro.js primero -->
+    
     <script src="registro.js"></script>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Verificar si el usuario tiene sesión activa
-            const usuarioSesion = sessionStorage.getItem('usuario_sesion') || 
+              const usuarioSesion = sessionStorage.getItem('usuario_sesion') || 
                                   localStorage.getItem('usuario_sesion');
             
             const btnUsuario = document.getElementById('btnUsuario');
             
             if (usuarioSesion) {
-                // Si hay sesión activa, redirigir a perfil
+               
                 try {
                     const usuario = JSON.parse(usuarioSesion);
                     btnUsuario.href = '/perfil.html';
                     btnUsuario.title = `Mi Perfil - ${usuario.nombre}`;
                     
-                    console.log('✅ Sesión activa:', usuario.nombre);
+                    console.log(' Sesión activa:', usuario.nombre);
                 } catch (error) {
                     console.error('Error al parsear usuario:', error);
                     btnUsuario.href = '/login.html';
                     btnUsuario.title = 'Iniciar Sesión';
                 }
             } else {
-                // Si no hay sesión, redirigir a login
+   
                 btnUsuario.href = '/login.html';
                 btnUsuario.title = 'Iniciar Sesión';
                 
-                console.log('❌ No hay sesión activa');
+                console.log(' No hay sesión activa');
             }
         });
 
-        // Función alternativa usando la función de registro.js (si está disponible)
+      
         function configurarBotonUsuario() {
             const usuario = obtenerUsuarioActual();
             const btnUsuario = document.getElementById('btnUsuario');
@@ -78,7 +77,7 @@
             }
         }
 
-        // Intentar usar la función si existe
+      
         if (typeof obtenerUsuarioActual === 'function') {
             configurarBotonUsuario();
         }

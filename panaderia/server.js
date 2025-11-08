@@ -16,10 +16,10 @@ app.use(express.static(__dirname));
 
 // Configuración de la base de datos
 const dbConfig = {
-    host: 'localhost',
-    user: 'root',
-    password: 'tu_clave_segura',
-    database: 'desesperanza'
+    host: process.env.DB_HOST,
+    user: process.env.DB_user,
+    password: process.env.DB_password,
+    database: process.env.database
 };
 
 // Crear pool de conexiones

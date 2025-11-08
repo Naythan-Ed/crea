@@ -1,6 +1,5 @@
-// registro.js - Sistema de autenticación COMPLETO Y CORREGIDO
-
-const API_URL = 'http://localhost:3000/api';
+// ✅ Render usa el mismo dominio para frontend y backend
+const API_URL = '/api';
 
 document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('loginForm');
@@ -16,8 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     verificarSesionActiva();
 });
-
-// ==================== FUNCIONES DE LOGIN ====================
 
 async function handleLogin(e) {
     e.preventDefault();
@@ -43,14 +40,11 @@ async function handleLogin(e) {
     try {
         const response = await fetch(`${API_URL}/login`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
         });
         
         const data = await response.json();
-        
         loading.style.display = 'none';
         
         if (data.error) {
@@ -59,32 +53,24 @@ async function handleLogin(e) {
         }
         
         if (data.success) {
-            // Guardar sesión
             const storage = recordar ? localStorage : sessionStorage;
             storage.setItem('usuario_sesion', JSON.stringify(data.usuario));
             
-            // ✅ VERIFICAR SI ES ADMIN por email
             if (data.usuario.email === 'admin@gmail.com') {
                 mostrarExito(successDiv, '¡Bienvenido Administrador!');
-                setTimeout(() => {
-                    window.location.href = 'admin.html';
-                }, 1500);
+                setTimeout(() => window.location.href = 'admin.html', 1500);
             } else {
                 mostrarExito(successDiv, '¡Bienvenido ' + data.usuario.nombre + '!');
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 1500);
+                setTimeout(() => window.location.href = 'index.html', 1500);
             }
         }
         
     } catch (error) {
         loading.style.display = 'none';
-        mostrarError(errorDiv, 'Error de conexión con el servidor. Asegúrate de que el servidor esté corriendo.');
+        mostrarError(errorDiv, 'Error de conexión con el servidor.');
         console.error('Error:', error);
     }
 }
-
-// ==================== FUNCIONES DE REGISTRO ====================
 
 async function handleRegistro(e) {
     e.preventDefault();
@@ -103,7 +89,6 @@ async function handleRegistro(e) {
     errorDiv.style.display = 'none';
     successDiv.style.display = 'none';
     
-    // Validaciones del lado del cliente
     if (!nombre || !apellido || !email || !telefono || !password || !confirmPassword) {
         mostrarError(errorDiv, 'Por favor completa todos los campos');
         return;
@@ -129,20 +114,11 @@ async function handleRegistro(e) {
     try {
         const response = await fetch(`${API_URL}/registro`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                nombre,
-                apellido,
-                email,
-                telefono,
-                password
-            })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nombre, apellido, email, telefono, password })
         });
         
         const data = await response.json();
-        
         loading.style.display = 'none';
         
         if (data.error) {
@@ -152,60 +128,42 @@ async function handleRegistro(e) {
         
         if (data.success) {
             mostrarExito(successDiv, '¡Cuenta creada exitosamente! Redirigiendo a login...');
-            
             document.getElementById('registroForm').reset();
-            
-            setTimeout(() => {
-                window.location.href = 'login.html';
-            }, 2000);
+            setTimeout(() => window.location.href = 'login.html', 2000);
         }
         
     } catch (error) {
         loading.style.display = 'none';
-        mostrarError(errorDiv, 'Error de conexión con el servidor. Asegúrate de que el servidor esté corriendo.');
+        mostrarError(errorDiv, 'Error de conexión con el servidor.');
         console.error('Error:', error);
     }
 }
 
-// ==================== FUNCIONES AUXILIARES ====================
-
+// Funciones auxiliares
 function validarEmail(email) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
 }
-
 function mostrarError(elemento, mensaje) {
     elemento.textContent = mensaje;
     elemento.style.display = 'block';
-    elemento.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
-
 function mostrarExito(elemento, mensaje) {
     elemento.textContent = mensaje;
     elemento.style.display = 'block';
-    elemento.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
-
 function verificarSesionActiva() {
-    const usuarioSesion = sessionStorage.getItem('usuario_sesion') || 
-                          localStorage.getItem('usuario_sesion');
-    
-    if (usuarioSesion) {
-        if (window.location.pathname.includes('login.html') || 
-            window.location.pathname.includes('registro.html')) {
-            window.location.href = 'index.html';
-        }
+    const usuarioSesion = sessionStorage.getItem('usuario_sesion') || localStorage.getItem('usuario_sesion');
+    if (usuarioSesion && (window.location.pathname.includes('login.html') || window.location.pathname.includes('registro.html'))) {
+        window.location.href = 'index.html';
     }
 }
-
 function cerrarSesion() {
     sessionStorage.removeItem('usuario_sesion');
     localStorage.removeItem('usuario_sesion');
     window.location.href = 'login.html';
 }
-
 function obtenerUsuarioActual() {
-    const usuarioJSON = sessionStorage.getItem('usuario_sesion') || 
-                        localStorage.getItem('usuario_sesion');
+    const usuarioJSON = sessionStorage.getItem('usuario_sesion') || localStorage.getItem('usuario_sesion');
     return usuarioJSON ? JSON.parse(usuarioJSON) : null;
 }

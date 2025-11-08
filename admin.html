@@ -10,7 +10,7 @@
     <div class="container">
         <div class="admin-header">
             <div>
-                <h1> Panel de Administración</h1>
+                <h1>🔧 Panel de Administración</h1>
                 <p>Gestión de Productos - La Desesperanza</p>
             </div>
             <a href="index.html" class="btn-cerrar" onclick="cerrarSesion()">Cerrar Sesión</a>
@@ -94,15 +94,17 @@
     </div>
 
     <script>
-        const API_URL = 'http://localhost:3000/api';
+        // ✅ URL relativa para Render
+        const API_URL = '/api';
 
-       
+        // Verificar y cargar datos al iniciar
         document.addEventListener('DOMContentLoaded', function() {
             verificarAdmin();
             cargarProductos();
             cargarEstadisticas();
         });
 
+        // Verificar que el usuario sea administrador
         function verificarAdmin() {
             const usuarioJSON = sessionStorage.getItem('usuario_sesion') || 
                                 localStorage.getItem('usuario_sesion');
@@ -115,7 +117,7 @@
 
             const usuario = JSON.parse(usuarioJSON);
             
-            
+            // Solo admin@gmail.com puede acceder
             if (usuario.email !== 'admin@gmail.com') {
                 alert('No tienes permisos de administrador');
                 window.location.href = 'index.html';
@@ -131,7 +133,7 @@
             }
         }
 
-       
+        // Agregar nuevo producto
         document.getElementById('productoForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
@@ -181,7 +183,7 @@
                 }
 
                 if (data.success) {
-                    mostrarExito(' Producto agregado exitosamente');
+                    mostrarExito('✅ Producto agregado exitosamente');
                     document.getElementById('productoForm').reset();
                     cargarProductos();
                     cargarEstadisticas();
@@ -194,10 +196,15 @@
             }
         });
 
-       
+        // Cargar lista de productos
         async function cargarProductos() {
             try {
                 const response = await fetch(`${API_URL}/productos`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
                 const data = await response.json();
 
                 const lista = document.getElementById('listaProductos');
@@ -221,11 +228,14 @@
             } catch (error) {
                 console.error('Error cargando productos:', error);
                 document.getElementById('listaProductos').innerHTML = 
-                    '<p style="text-align: center; color: #d32f2f;">Error cargando productos</p>';
+                    `<p style="text-align: center; color: #d32f2f;">
+                        ⚠️ Error cargando productos<br>
+                        <small>${error.message}</small>
+                    </p>`;
             }
         }
 
-       
+        // Eliminar producto
         async function eliminarProducto(id) {
             if (!confirm('¿Estás seguro de eliminar este producto?')) return;
 
@@ -237,7 +247,7 @@
                 const data = await response.json();
 
                 if (data.success) {
-                    mostrarExito('Producto eliminado exitosamente');
+                    mostrarExito('✅ Producto eliminado exitosamente');
                     cargarProductos();
                     cargarEstadisticas();
                 } else {
@@ -250,10 +260,16 @@
             }
         }
 
-        
+        // Cargar estadísticas
         async function cargarEstadisticas() {
             try {
                 const response = await fetch(`${API_URL}/productos`);
+                
+                if (!response.ok) {
+                    console.error('Error al cargar estadísticas');
+                    return;
+                }
+                
                 const data = await response.json();
 
                 if (data.success) {

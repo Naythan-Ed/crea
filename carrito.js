@@ -1,6 +1,7 @@
 // carrito.js - Sistema de carrito de compras (Arrays temporales, BD solo al comprar)
 
-const API_URL = 'http://localhost:3000/api';
+// ✅ URL relativa para Render
+const API_URL = '/api';
 const COSTO_ENVIO = 50.00;
 
 // Cargar carrito al iniciar

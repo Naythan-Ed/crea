@@ -1,6 +1,7 @@
 // productos.js - Cargar productos desde la base de datos
 
-const API_URL = 'http://localhost:3000/api';
+// ✅ URL relativa para Render
+const API_URL = '/api';
 
 // Cargar productos al iniciar la página
 document.addEventListener('DOMContentLoaded', () => {
